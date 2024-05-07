@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Display</title>
+    <style>
+        /* CSS styling for code display */
+        pre {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>3</h1>
+    <pre>
+        <code>
+            #include &lt;iostream&gt;
+            #include &lt;vector&gt;
+            #include &lt;string&gt;
+            using namespace std;
+
+            struct Node {
+                string label;
+                int ch_count;
+                vector&lt;Node&gt; child;
+            };
+
+            class GT {
+            public:
+                Node create_tree();
+                void display(const Node&amp; root);
+            };
+
+            Node GT::create_tree() {
+                Node root;
+                cout &lt;&lt; "Enter name of book: ";
+                cin &gt;&gt; root.label;
+                cout &lt;&lt; "Enter number of chapters in book: ";
+                cin &gt;&gt; root.ch_count;
+                root.child.resize(root.ch_count);
+                for (int i = 0; i &lt; root.ch_count; ++i) {
+                    cout &lt;&lt; "Enter Chapter " &lt;&lt; i + 1 &lt;&lt; " name: ";
+                    cin &gt;&gt; root.child[i].label;
+                    cout &lt;&lt; "Enter number of sections in Chapter " &lt;&lt; root.child[i].label &lt;&lt; ": ";
+                    cin &gt;&gt; root.child[i].ch_count;
+                    root.child[i].child.resize(root.child[i].ch_count);
+                    for (int j = 0; j &lt; root.child[i].ch_count; ++j) {
+                        cout &lt;&lt; "Enter Section " &lt;&lt; j + 1 &lt;&lt; " name: ";
+                        cin &gt;&gt; root.child[i].child[j].label;
+                        cout &lt;&lt; "Enter number of subsections in " &lt;&lt; root.child[i].child[j].label &lt;&lt; ": ";
+                        cin &gt;&gt; root.child[i].child[j].ch_count;
+                        root.child[i].child[j].child.resize(root.child[i].child[j].ch_count);
+                        for (int k = 0; k &lt; root.child[i].child[j].ch_count; ++k) {
+                            cout &lt;&lt; "Enter subSection " &lt;&lt; k + 1 &lt;&lt; " name: ";
+                            cin &gt;&gt; root.child[i].child[j].child[k].label;
+                        }
+                    }
+                }
+                return root;
+            }
+
+            void GT::display(const Node&amp; root) {
+                cout &lt;&lt; "\n\n-----Book Hierarchy---";
+                cout &lt;&lt; "\n\nBook title: " &lt;&lt; root.label;
+                for (int i = 0; i &lt; root.ch_count; ++i) {
+                    cout &lt;&lt; "\nChapter " &lt;&lt; i + 1 &lt;&lt; ": " &lt;&lt; root.child[i].label;
+                    for (int j = 0; j &lt; root.child[i].ch_count; ++j) {
+                        cout &lt;&lt; "\nSections ";
+                        cout &lt;&lt; j + 1 &lt;&lt; ": " &lt;&lt; root.child[i].child[j].label &lt;&lt; "\n";
+                        for (int k = 0; k &lt; root.child[i].child[j].ch_count; ++k) {
+                            cout &lt;&lt; "SubSections ";
+                            cout &lt;&lt; j + 1 &lt;&lt; "." &lt;&lt; k + 1 &lt;&lt; " " &lt;&lt; root.child[i].child[j].child[k].label &lt;&lt; "\n\t";
+                        }
+                    }
+                }
+            }
+
+            int main() {
+                GT gt;
+                Node root = gt.create_tree();
+                gt.display(root);
+                return 0;
+            }
+        </code>
+    </pre>
+</body>
+</html>
